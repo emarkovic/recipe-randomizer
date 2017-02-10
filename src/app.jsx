@@ -25,12 +25,15 @@ export default class extends React.Component {
 			} else {
 				window.location = "/?#/signin";
 			}
-			return user;
 		});	
 
 		this.ref.on('value', snapshot => {
 			this.setState({recipes: snapshot});
 		});
+	}
+
+	handleLogOut() {
+		this.firebase.auth().signOut();
 	}
 
 	pickRandomLink() {
@@ -41,13 +44,13 @@ export default class extends React.Component {
 				if (!value.checked) {
 					recipes.push(value.link);
 				}				
-			});
-			console.log(recipes)
+			});			
 			if (recipes.length == 0) return;			
 			if (recipes.length == 1) {
 				this.setState({chosenRecipe: recipes[0]});
 			} else {
-				let index = Math.round(Math.Random() * recipes.length);
+				let index = Math.round(Math.random() * recipes.length);
+				console.log(recipes[index])
 				this.setState({chosenRecipe: recipes[index]});
 			}			
 		}
@@ -67,26 +70,33 @@ export default class extends React.Component {
 		if (this.state.chosenRecipe) {			
 			chosen = <a href={this.state.chosenRecipe}>{this.state.chosenRecipe}</a>;
 		}
-
+		//<div></div>
 		return (
-			<div>
-				<Jumbotron style={{display: 'flex', justifyContent: 'center'}}>
+			<div style={{height: '100vh'}}>
+				<div style={{width: '100%', backgroundColor: '#eee', paddingTop: 5, paddingRight: 5, textAlign: 'right'}}>
+					<Button onClick={() => this.handleLogOut()}>Log Out</Button>
+				</div>				
+				<Jumbotron style={{display: 'flex', justifyContent: 'center', marginBottom: 0}}>					
 					<NewRecipe firebase={this.firebase}/>
-				</Jumbotron>				
-				<div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20, marginTop: 100}}>					
-					<Button onClick={() => this.pickRandomLink()} style={{width: 200}} bsStyle="info">Randomize</Button>
-				</div>
-				<div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', height: 50, marginBottom: 100}}>					
-					<p>{chosen}</p>
-				</div>
-				<Jumbotron style={{display: 'flex', marginBottom: 0}}>					
-					<div style={flexChildStyle}>
-						<p>All recipes</p>
-						<div>
+				</Jumbotron>	
+				
+				<div className="content" style={{display: 'flex', height: '100%'}}>
+					<div className="all-recipes" style={{flexBasis: '50%', borderRight: '1px solid #eee', paddingTop: 20}}>
+						<h2 style={{textAlign: 'center', marginBottom: 20}}>All recipes</h2>
+						<div style={{paddingLeft: 40}}>
 							{allRecipes}
-						</div>
-					</div>					
-				</Jumbotron>
+						</div>						
+					</div>
+					<div className="randomizer" style={{flexBasis: '50%'}}>
+
+						<div style={{display: 'flex', height: 200, justifyContent: 'center', alignItems: 'center'}}>
+							<Button onClick={() => this.pickRandomLink()} style={{width: 200, height: 40}} bsStyle="info">
+								Pick a random recipe.
+							</Button>
+						</div>		
+						<h3 style={{textAlign: 'center'}}>{chosen}</h3>				
+					</div>
+				</div>				
 			</div>
 		)
 	}

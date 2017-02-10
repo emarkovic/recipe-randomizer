@@ -35,7 +35,7 @@ export default class extends React.Component {
 		if (this.state.confirmation) {
 			confirmation = (
 				<p 
-					style={{flexBasis: '100%', color: 'green', fontSize: '14px', textAlign: 'center', marginTop: 5}}
+					style={{flexBasis: '100%', color: '#84CF96', fontSize: '14px', textAlign: 'center', marginTop: 5}}
 				>{this.state.confirmation}</p>
 			);
 		}
