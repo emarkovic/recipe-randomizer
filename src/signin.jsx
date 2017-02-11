@@ -14,7 +14,7 @@ export default class extends React.Component {
 	componentDidMount() {
 		this.firebase.auth().onAuthStateChanged(function(user) {
 			if (user) {
-				window.location = "/?#/";
+				window.location.replace("#/");
 			} 
 		});	
 	}
@@ -22,7 +22,7 @@ export default class extends React.Component {
 	signIn() {
 		this.firebase.auth().signInWithPopup(new this.firebase.auth.GoogleAuthProvider())
 			.then(() => {
-				window.location = '/?#/';
+				window.location.replace('#/');
 			})
 			.catch(console.error);
 	}

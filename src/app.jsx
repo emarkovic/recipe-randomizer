@@ -23,7 +23,7 @@ export default class extends React.Component {
 			if (user) {
 				self.setState({currentUser: user});				
 			} else {
-				window.location = "/?#/signin";
+				window.location.replace("#/signin");
 			}
 		});	
 
@@ -68,7 +68,7 @@ export default class extends React.Component {
 		}
 
 		if (this.state.chosenRecipe) {			
-			chosen = <a href={this.state.chosenRecipe}>{this.state.chosenRecipe}</a>;
+			chosen = <a href={this.state.chosenRecipe} target="_blank">{this.state.chosenRecipe}</a>;
 		}
 		//<div></div>
 		return (

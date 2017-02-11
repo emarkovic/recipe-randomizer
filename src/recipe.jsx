@@ -28,7 +28,7 @@ export default class extends React.Component {
 		if (this.props.link) {			
 			content = (
 				<Checkbox checked={this.state.checked} onClick={() => this.checkboxClicked()}>
-					<a href={this.props.link}>{this.props.link}</a>
+					<a href={this.props.link} target="_blank">{this.props.link}</a>
 				</Checkbox>
 			);
 		}
