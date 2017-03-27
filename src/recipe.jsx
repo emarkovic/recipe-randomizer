@@ -23,6 +23,10 @@ export default class extends React.Component {
 		});		
 	}
 
+	handleDelete() {
+		this.props.snapshot.ref.remove();			
+	}
+
 	render() {
 		let content;		
 		if (this.props.link) {			
@@ -30,6 +34,7 @@ export default class extends React.Component {
 				<Checkbox checked={this.state.checked} onClick={() => this.checkboxClicked()}>
 					<a href={this.props.link} target="_blank">{this.props.link}</a>
 				</Checkbox>
+				<i className="fa fa-trash-o" aria-hidden="true" onClick={() => this.handleDelete()}></i>
 			);
 		}
 		return (
